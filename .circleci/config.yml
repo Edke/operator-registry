@@ -1,0 +1,18 @@
+version: 2.1
+
+orbs:
+  docker: circleci/docker@0.5.20
+
+jobs:
+  check-and-build-only:
+    executor: docker/machine
+    steps:
+      - checkout
+      - docker/check
+      - docker/build:
+          image: fooo/bar
+          dockerfile: operatorhub.Dockerfile
+workflows:
+  build-docker-image-only:
+    jobs:
+      - check-and-build-only
